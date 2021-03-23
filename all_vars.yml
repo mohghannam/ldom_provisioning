@@ -1,0 +1,10 @@
+---
+cdom_ip: 10.20.20.11
+hostname: mohamed
+ipaddr: 10.100.100.1/8
+gateway: 10.10.10.10
+vds: primary-vds0
+volume: vol4165847
+disk: /dev/dsk/c7t0d0s2
+uuid: bbf6ca21-6aa6-441e-8713-d38a193d4964
+

@@ -1,0 +1,57 @@
+---
+- name: cdom validation
+  hosts: localhost
+  # gather_facts: no
+  vars:
+       cdom_validation:
+       host_validation: 
+       ip_validation: 
+       gateway_validation:
+       disk_validation: 
+  vars_files:
+          - all_vars.yml
+  tasks:
+     - name: run cdom script
+       shell: /var/lib/awx/projects/cdom/script.sh  "{{ cdom_validation }}"
+       register: result
+     - name: showing
+       debug:
+         var: result
+     - name: Include vars of stuff.yaml into the 'stuff' variable (2.2).
+       include_vars:
+         file:  all_vars.yml
+     - name: working in case of success
+       debug:
+         var: cdom_ip
+       failed_when: " 'fail' in result.stdout"
+     - name: hostname validation
+       shell: /var/lib/awx/projects/cdom/host-valid.sh "{{ host_validation }}" 
+       register: host_result
+     - name: showing host register
+       debug:
+         var: host_result
+       failed_when: " 'fail' in host_result.stdout"
+     - name: ip validation
+       shell:  /var/lib/awx/projects/cdom/valid_host_ip.sh {{ ip_validation }} {{ gateway_validation }}
+       register: ip_result
+     - name: display ip
+       debug:
+         var: ip_result
+       failed_when: " 'fail' in ip_result.stdout"
+     - name: run disk
+       shell: /var/lib/awx/projects/cdom/disk.sh {{ cdom_ip }} {{ disk_validation }}
+       register: disk_result
+     - name: show disk
+       debug:
+         var: disk_result
+     - name: working in case of success
+       debug:
+         var: disk
+       failed_when: " 'fail' in disk_result.stdout"
+     - name: template
+       template:
+               src: /var/lib/awx/projects/cdom/constrants.xml
+               dest: /root/
+       delegate_to: "{{cdom_ip}}" 
+     - name: bind ldm
+       shell: /var/lib/awx/projects/cdom/ldm.sh {{ cdom_ip }} {{ hostname }}

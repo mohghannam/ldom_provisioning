@@ -1,0 +1,19 @@
+#
+# Copyright 2009 Sun Microsystems, Inc.  All rights reserved.
+# Use is subject to license terms.
+#
+# Internet host table
+#
+::1 DCHQSIEBGWTST localhost 
+127.0.0.1 DCHQSIEBGWTST localhost loghost 
+10.230.86.55   siebtest215.vf-eg.internal.vodafone.com siebtest215 DCHQIDmang02 DCHQIDmang02.vf-eg.internal.vodafone.com DCHQSIEBGWTST DCHQSIEBGWTST.vf-eg.internal.vodafone.com
+10.230.86.52   siebtest214.vf-eg.internal.vodafone.com siebtest214 DCHQIDmang01 DCHQIDmang01.vf-eg.internal.vodafone.com DCHQAIweb DCHQAIweb.vf-eg.internal.vodafone.com
+
+10.230.85.49    DCHQSIEBDEV01   DCHQSIEBDEV01.vf-eg.internal.vodafone.com Siebel-DB       siebel-database
+10.230.86.172    DCHQTBTST01     Tibco-App       Tibco-EMS       Tibco_EMS       Tibco-JMS       TIBCOTST        TIBCO-50        tibco-loadBalancer      tibco-loadbalancer      Tibco-Admin-DB  Tibco_Admin_DB
+10.230.86.188   Tibco-DB        Tibco-Database  tibco-database
+10.230.86.84    rtx-database    bscs-database   billing-cms     billing-gmd     Billing-DB
+10.230.86.182   loyalty-database
+10.230.85.46    mailhost        mailhost.mydomain.com   email-server    SMPP-HOST
+10.230.86.52    oracle-oem-oc-mgmt-vodafone-devops
+10.20.20.12    web1

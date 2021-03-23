@@ -1,0 +1,15 @@
+---
+- name: set web & app to hosts
+  hosts: localhost
+  tasks:
+          - name: add a line to a web_hosts
+            lineinfile:
+                    path: /var/lib/awx/projects/cdom/web_hosts
+                    line: 10.20.20.11    app1
+                    create: yes
+          - name: Add a line to a app_hosts 
+            lineinfile:
+                    path: /var/lib/awx/projects/cdom/app_hosts
+                    line: 10.20.20.12    web1
+                    create: yes
+

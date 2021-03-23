@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<LDM_interface version="1.7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="./schemas/combined-v3.xsd" xmlns:ovf="./schemas/envelope" xmlns:rasd="./schemas/CIM_ResourceAllocationSettingData" xmlns:vssd="./schemas/CIM_VirtualSystemSettingData" xmlns:gprop="./schemas/GenericProperty" xmlns:bind="./schemas/Binding">
+  <data version="3.0">
+    <Envelope>
+      <References/>
+      <Content xsi:type="ovf:VirtualSystem_Type" ovf:id="{{ hostname }}">
+        <Section xsi:type="ovf:ResourceAllocationSection_Type">
+          <Item>
+            <rasd:OtherResourceType>ldom_info</rasd:OtherResourceType>
+            <rasd:Address>auto-allocated</rasd:Address>
+            <gprop:GenericProperty key="hostid">0x84f816d6</gprop:GenericProperty>
+	    <gprop:GenericProperty key="uuid">{{ uuid  }}</gprop:GenericProperty>
+            <gprop:GenericProperty key="failure-policy">ignore</gprop:GenericProperty>
+            <gprop:GenericProperty key="wcore">unlimited</gprop:GenericProperty>
+            <gprop:GenericProperty key="extended-mapin-space">on</gprop:GenericProperty>
+            <gprop:GenericProperty key="cpu-arch">native</gprop:GenericProperty>
+            <gprop:GenericProperty key="rc-add-policy"></gprop:GenericProperty>
+            <gprop:GenericProperty key="shutdown-group">15</gprop:GenericProperty>
+            <gprop:GenericProperty key="perf-counters">htstrand</gprop:GenericProperty>
+            <gprop:GenericProperty key="boot-policy">warning</gprop:GenericProperty>
+          </Item>
+        </Section>
+        <Section xsi:type="ovf:VirtualHardwareSection_Type">
+          <Item>
+            <rasd:OtherResourceType>core</rasd:OtherResourceType>
+	    <rasd:AllocationUnits>4</rasd:AllocationUnits>
+          </Item>
+        </Section>
+        <Section xsi:type="ovf:VirtualHardwareSection_Type">
+          <Item>
+            <rasd:OtherResourceType>mau</rasd:OtherResourceType>
+            <rasd:AllocationUnits>0</rasd:AllocationUnits>
+          </Item>
+        </Section>
+        <Section xsi:type="ovf:VirtualHardwareSection_Type">
+          <Item>
+            <rasd:OtherResourceType>memory</rasd:OtherResourceType>
+	    <rasd:AllocationUnits>8G</rasd:AllocationUnits>
+          </Item>
+        </Section>
+        <Section xsi:type="ovf:VirtualHardwareSection_Type">
+          <Item>
+            <rasd:OtherResourceType>network</rasd:OtherResourceType>
+            <rasd:Address>auto-allocated</rasd:Address>
+            <gprop:GenericProperty key="vnet_name">vnic0</gprop:GenericProperty>
+            <gprop:GenericProperty key="service_name">primary-vsw0</gprop:GenericProperty>
+            <gprop:GenericProperty key="pvid">1</gprop:GenericProperty>
+            <gprop:GenericProperty key="linkprop">phys-state</gprop:GenericProperty>
+            <gprop:GenericProperty key="custom">disable</gprop:GenericProperty>
+            <gprop:GenericProperty key="device">network@0</gprop:GenericProperty>
+            <gprop:GenericProperty key="id">0</gprop:GenericProperty>
+          </Item>
+        </Section>
+        <Section xsi:type="ovf:VirtualHardwareSection_Type">
+          <Item>
+            <rasd:OtherResourceType>disk</rasd:OtherResourceType>
+            <gprop:GenericProperty key="vdisk_name">iso</gprop:GenericProperty>
+            <gprop:GenericProperty key="service_name">primary-vds0</gprop:GenericProperty>
+            <gprop:GenericProperty key="vol_name">iso-desk</gprop:GenericProperty>
+            <gprop:GenericProperty key="device">disk@1</gprop:GenericProperty>
+            <gprop:GenericProperty key="id">1</gprop:GenericProperty>
+          </Item>
+        </Section>
+        <Section xsi:type="ovf:VirtualHardwareSection_Type">
+          <Item>
+            <rasd:OtherResourceType>vds_volume</rasd:OtherResourceType>
+            <gprop:GenericProperty key="vol_name">iso-desk</gprop:GenericProperty>
+            <gprop:GenericProperty key="service_name">primary-vds0</gprop:GenericProperty>
+            <gprop:GenericProperty key="block_dev">/root/sol-11_2-text-sparc.iso</gprop:GenericProperty>
+          </Item>
+        </Section>
+        <Section xsi:type="ovf:VirtualHardwareSection_Type">
+          <Item>
+            <rasd:OtherResourceType>disk</rasd:OtherResourceType>
+            <gprop:GenericProperty key="vdisk_name">vdisk1</gprop:GenericProperty>
+            <gprop:GenericProperty key="service_name">primary-vds0</gprop:GenericProperty>
+	    <gprop:GenericProperty key="vol_name">{{ volume  }}</gprop:GenericProperty>
+            <gprop:GenericProperty key="device">disk@0</gprop:GenericProperty>
+            <gprop:GenericProperty key="id">0</gprop:GenericProperty>
+          </Item>
+        </Section>
+        <Section xsi:type="ovf:VirtualHardwareSection_Type">
+          <Item>
+            <rasd:OtherResourceType>vds_volume</rasd:OtherResourceType>
+	    <gprop:GenericProperty key="vol_name">{{ volume  }}</gprop:GenericProperty>
+            <gprop:GenericProperty key="service_name">primary-vds0</gprop:GenericProperty>
+	    <gprop:GenericProperty key="block_dev">{{ disk  }}</gprop:GenericProperty>
+          </Item>
+        </Section>
+        <Section xsi:type="ovf:VirtualHardwareSection_Type">
+          <Item>
+            <rasd:OtherResourceType>var</rasd:OtherResourceType>
+            <gprop:GenericProperty key="name">auto-boot?</gprop:GenericProperty>
+            <gprop:GenericProperty key="value">false</gprop:GenericProperty>
+          </Item>
+        </Section>
+        <Section xsi:type="ovf:VirtualHardwareSection_Type">
+          <Item>
+            <rasd:OtherResourceType>var</rasd:OtherResourceType>
+            <gprop:GenericProperty key="name">boot-device</gprop:GenericProperty>
+            <gprop:GenericProperty key="value">/virtual-devices@100/channel-devices@200/disk@0:a disk net</gprop:GenericProperty>
+          </Item>
+        </Section>
+      </Content>
+    </Envelope>
+  </data>
+</LDM_interface>

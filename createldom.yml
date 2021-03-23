@@ -1,0 +1,128 @@
+---
+- name: Create web host
+  hosts: 10.20.20.11
+  # gather_facts: no
+  vars:
+       web_cdom_validation:
+       web_host_validation: 
+       web_ip_validation: 
+       web_gateway_validation:
+       web_disk_validation: 
+  vars_files:
+          - all_vars.yml
+  tasks:
+     - name: web script check cdom
+       shell: /var/lib/awx/projects/cdom/script.sh  "{{ web_cdom_validation }}"
+       delegate_to: localhost
+       register: web_cdom_result
+     - name: showing web cdom
+       debug:
+         var: web_cdom_result
+     - name: Include vars of stuff.yaml into the 'stuff' variable (2.2).
+       include_vars:
+         file:  all_vars.yml
+     - name: working in case of success
+       debug:
+         var: cdom_ip
+       failed_when: " 'fail' in result.stdout"
+     - name: web hostname validation
+       shell: /var/lib/awx/projects/cdom/host-valid.sh "{{ web_host_validation }}" 
+       delegate_to: localhost
+       register: web_host_result
+     - name: showing web host register
+       debug:
+         var: web_host_result
+       failed_when: " 'fail' in host_result.stdout"
+     - name: web ip validation
+       shell:  /var/lib/awx/projects/cdom/valid_host_ip.sh {{ web_ip_validation }} {{ web_gateway_validation }}
+       delegate_to: localhost
+       register: web_ip_result
+     - name: display web ip
+       debug:
+         var: web_ip_result
+       failed_when: " 'fail' in ip_result.stdout"
+     - name: run web disk
+       shell: /var/lib/awx/projects/cdom/disk.sh {{ cdom_ip }} {{ web_disk_validation }}
+       delegate_to: localhost
+       register: web_disk_result
+     - name: show web disk
+       debug:
+         var: web_disk_result
+     - name: working in case of success
+       debug:
+         var: disk
+       failed_when: " 'fail' in disk_result.stdout"
+     - name: web template
+       template:
+               src: /var/lib/awx/projects/cdom/constrants.xml
+               dest: /root/
+       delegate_to: "{{cdom_ip}}" 
+     - name: bind web ldm
+       shell: /var/lib/awx/projects/cdom/ldm.sh {{ cdom_ip }} {{ hostname }}
+       delegate_to: localhost
+
+
+     
+- name: create app host
+  hosts: 10.20.20.11
+  # gather_facts: no
+  vars:
+       app_cdom_validation:
+       app_host_validation:
+       app_ip_validation:
+       app_gateway_validation:
+       app_disk_validation:
+  vars_files:
+          - all_vars.yml
+  tasks:
+     - name: app script check cdom
+       shell: /var/lib/awx/projects/cdom/script.sh  "{{ app_cdom_validation }}"
+       delegate_to: localhost
+       register: app_cdom_result
+     - name: showing
+       debug:
+         var: app_cdom_result
+     - name: Include vars of stuff.yaml into the 'stuff' variable (2.2).
+       include_vars:
+         file:  all_vars.yml
+     - name: working in case of success
+       debug:
+         var: cdom_ip
+       failed_when: " 'fail' in result.stdout"
+     - name: app hostname validation
+       shell: /var/lib/awx/projects/cdom/host-valid.sh "{{ app_host_validation }}"
+       delegate_to: localhost
+       register: app_host_result
+     - name: showing host register
+       debug:
+         var: app_host_result
+       failed_when: " 'fail' in host_result.stdout"
+     - name: app ip validation
+       shell:  /var/lib/awx/projects/cdom/valid_host_ip.sh {{ app_ip_validation }} {{ app_gateway_validation }}
+       delegate_to: localhost
+       register: app_ip_result
+     - name: display ip
+       debug:
+         var: app_ip_result
+       failed_when: " 'fail' in ip_result.stdout"
+     - name: run app disk
+       shell: /var/lib/awx/projects/cdom/disk.sh {{ cdom_ip }} {{ app_disk_validation }}
+       delegate_to: localhost
+       register: app_disk_result
+     - name: show app disk
+       debug:
+         var: app_disk_result
+     - name: working in case of success
+       debug:
+         var: disk
+       failed_when: " 'fail' in disk_result.stdout"
+     - name: app template
+       template:
+               src: /var/lib/awx/projects/cdom/constrants.xml
+               dest: /root/
+       delegate_to: "{{cdom_ip}}"
+     - name: bind app ldm
+       shell: /var/lib/awx/projects/cdom/ldm.sh {{ cdom_ip }} {{ hostname }}
+       delegate_to: localhost
+
+
