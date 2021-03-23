@@ -1,0 +1,3 @@
+# Description
+
+Bash scripts that are used to provision ldoms on sparc servers. These scripts are used with ansible playbooks and Red Hat Cloudforms.
